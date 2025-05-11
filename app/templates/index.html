@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Polyp Segmentation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .image-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .image-box img {
+      width: 256px;
+      height: 256px;
+      object-fit: cover;
+      border: 2px solid #dee2e6;
+      border-radius: 10px;
+    }
+    .image-label {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Polyp Segmentation</h2>
+    <form id="uploadForm" class="text-center">
+      <input type="file" id="imageInput" name="file" accept="image/*" class="form-control mb-3 w-50 mx-auto" required>
+      <button type="submit" class="btn btn-primary">Predict Mask</button>
+    </form>
+
+    <div class="image-container mt-5" id="resultContainer" style="display:none;">
+      <div class="image-box">
+        <img id="originalImage" src="" alt="Original Image">
+        <div class="image-label">Original Image</div>
+      </div>
+      <div class="image-box">
+        <img id="predictedMask" src="" alt="Predicted Mask">
+        <div class="image-label">Predicted Mask</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById("imageInput");
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Please select an image.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        // Show original image preview
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("originalImage").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        const response = await fetch("http://localhost:8000/predict/", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Ensure the predicted mask is base64 encoded or a static file URL
+          document.getElementById("predictedMask").src = result.file;
+          document.getElementById("resultContainer").style.display = "flex";
+        } else {
+          alert(result.message || "Something went wrong.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to fetch prediction. Please check your API.");
+      }
+    });
+  </script>
+</body>
+</html>
