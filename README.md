@@ -78,4 +78,4 @@ Returns:
 # Play with the portal
 Choose images from the test images folder
 
-![alt text](image.png)
+![alt text](image-1.png)
