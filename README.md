@@ -1,6 +1,6 @@
 # Polyp_segmentation_from_colonoscopy_FastAPI
-This application can segment the polyp from colonoscopy images.
-#***The model file is missing in this repository because 357MB can not be uploaded to GitHub. If you need the model file, please contact me***
+This application can segment the polyp from colonoscopy images. <br />
+***The model file is missing in this repository because 357MB can not be uploaded to GitHub. If you need the model file, please contact me***
 ## project workflow and description
 
 - collected dataset from [kvasir](https://datasets.simula.no/kvasir/)
