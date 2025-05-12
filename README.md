@@ -60,7 +60,7 @@ Access it at: http://127.0.0.1:8000/
 ```json
 POST /predict/
 {
-  "file": File
+  "file": imageFile
 }
 ```
 
@@ -68,7 +68,7 @@ Returns:
 
 ```json
 {
-    "filename": filename,
+    "filename": imageMask,
     "message": "File uploaded successfully"
 }
 ```
