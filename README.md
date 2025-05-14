@@ -44,11 +44,11 @@ Access it at: http://127.0.0.1:8000/
 ### Run with Docker
 Build the Docker image
 ```bash
-docker build -t alzapp:latest
+docker build -t polypapp:latest
 ```
 Run the Docker image
 ```bash
-docker run -d -p 8000:8000 alzapp:latest
+docker run -d -p 8000:8000 polypapp:latest
 ```
 
 Access it at: http://127.0.0.1:8000/
